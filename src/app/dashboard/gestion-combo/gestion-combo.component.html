@@ -1,0 +1,117 @@
+<div class="space-y-2">
+    <div class="grid grid-cols-2 gap-2 sm:gap-4">
+      <div class="col-span-2 md:col-span-1">
+        <h2 class="text-lg sm:text-2xl font-bold">Gestión de Combos</h2>
+      </div>
+      <div class="col-span-2 md:col-span-1 flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 pr-10">
+        <div >
+          <button
+            type="button"
+            class="btn btn-outline-secondary whitespace-nowrap"
+            data-bs-toggle="modal" data-bs-target="#agregarCombo"
+          >
+            + Combo
+          </button>
+        </div>
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Buscar combo"
+          aria-label="Search"
+          [(ngModel)]="searchedString"
+        />
+      </div>
+    </div>
+    <div *ngIf="combos.length == 0" class="pb-4">
+      <div class="blankDiv">No hay Registros Disponibles</div>
+    </div>
+    <div *ngIf="isLoading" class="box-spinner">
+      <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <div class="table-responsive mt-4" *ngIf="combos.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Lista de Productos</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let c of combos | search: 'descripcion':searchedString;
+              let i = index
+            "
+          >
+              <td>{{ i + 1 }}</td>
+              <td>{{ c.descripcion }}</td>
+              <td>S/{{ c.precio }}</td>
+              <td style="text-align: center; color: #0d6efd;">
+                <span class="material-icons-outlined icon-detalle" 
+                data-bs-toggle="modal" 
+                data-bs-target="#listaProductosCombo"
+                (click)="getComboProd(c.id_combo)">visibility</span>
+              </td>
+              <td>{{ c.estado == '1' ? 'Activo' : 'Inactivo' }}</td>
+
+              <td class="space-x-4 whitespace-nowrap">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal" data-bs-target="#asignarCombo"
+                  (click)="asignar(c.id_combo)"
+                >
+                  Asignar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal" data-bs-target="#editarCombo"
+                  (click)="edit(c.id_combo, c.descripcion, c.precio)"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="deleteCombo(c.id_combo)"
+                >
+                  Eliminar
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div></div>
+</div>
+
+<app-agregar-combo
+  (volveraListarCombos)="getCombos2daVez($event)"
+></app-agregar-combo>
+
+<app-editar-combo
+  [id_comb]="id_combo"
+  [desc]="descripcion"
+  [prec]="precio"
+  (volveraListarCombos)="getCombos2daVez($event)"
+  >
+</app-editar-combo>
+
+<app-asignar-combo
+[id_comb]="id_com"
+[desc]="descripcion"
+(volveraListarCombos)="getCombos2daVez($event)"
+
+></app-asignar-combo>
+
+<app-lista-productos-combo
+#listaProductosComboComponent
+
+></app-lista-productos-combo>

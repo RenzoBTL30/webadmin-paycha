@@ -1,0 +1,155 @@
+<div class="modal fade" id="detallePedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #detallePedidoModal>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Pedido {{orden.codigo}}</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 mb-4">
+              <div class="card card-body py-3 box-shadow ">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <table class="table mb-0">
+                      <tbody>
+                        <tr>
+                          <th class="border-0 py-2 pl-0">Fecha del pedido:</th>
+                          <td class="border-0 py-2 px-0">{{formatearFecha(orden.fecha_orden)}}</td>
+                        </tr>
+                        <tr>
+                          <th class="border-0 py-2 pl-0">Forma de entrega:</th>
+                          <td class="border-0 py-2 px-0">{{orden.forma_entrega}}</td>
+                        </tr>
+        
+                        <ng-container *ngIf="orden.id_forma_entrega == '2'">
+                            <tr>
+                                <th class="border-0 py-2 pl-0">Direccion:</th>
+                                <td class="border-0 py-2 px-0">{{orden.direccion == null ? '' : orden.direccion.direccion}}</td>
+                            </tr>
+            
+                            <tr>
+                                <th class="border-0 py-2 pl-0">Referencia:</th>
+                                <td class="border-0 py-2 px-0">{{orden.direccion == null ? '' : orden.direccion.lugar}}</td>
+                            </tr>
+                        </ng-container>
+                        
+                        <tr>
+                            <th class="border-0 py-2 pl-0">Método de <hr style="border: 0;"> pago:</th>
+                            <td class="border-0 py-2 px-0">{{orden.metodo_pago}}</td>
+                        </tr>
+                        <ng-container *ngIf="orden.id_metodo_pago == '1'">
+                            <tr>
+                                <th class="border-0 py-2 pl-0">Billete de <hr style="border: 0;"> pago:</th>
+                                <td class="border-0 py-2 px-0">{{orden.billete_pago}}</td>
+                            </tr>
+                        </ng-container>
+                        
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-lg-6">
+                    <table class="table mb-0">
+                      <tbody>
+                        <tr>
+                          <th class="border-0 py-2 pl-0">Tiempo estimado de entrega:</th>
+                          <td class="border-0 py-2 px-0">{{orden.tiempo_entrega == null ? '-' : orden.tiempo_entrega}}</td>
+                        </tr>
+                        <tr>
+                          <th class="border-0 py-2 pl-0">Estado:</th>
+                          <td class="align-middle border-0">
+                            <div [ngSwitch]="orden.estado">
+                                <div *ngSwitchCase="1">
+                                    <span class="badge badge-warning">Pendiente</span>
+                                </div>
+                                <div *ngSwitchCase="2">
+                                    <span class="badge badge-info">En proceso</span>
+                                </div>
+                                <div *ngSwitchCase="3">
+                                    <span class="badge badge-secondary">Preparado</span>
+                                </div>
+                                <div *ngSwitchCase="4">
+                                    <span class="badge badge-success">Completado</span>
+                                </div>
+                                <div *ngSwitchDefault>
+                                    <span class="badge badge-danger">Error</span>
+                                </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                            <th class="border-0 py-2 pl-0">Subtotal:</th>
+                            <td class="border-0 py-2 px-0">S/ {{orden.subtotal | number:'1.2-2'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="border-0 py-2 pl-0">Delivery:</th>
+                            <td class="border-0 py-2 px-0">S/ {{(orden.direccion == null ? 0 : orden.direccion.comision) | number:'1.2-2'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="border-0 py-2 pl-0">Descuento por puntos:</th>
+                            <td class="border-0 py-2 px-0">-</td>
+                        </tr>
+                        <tr>
+                            <th class="border-0 py-2 pl-0">TOTAL:</th>
+                            <td style="color: black; font-weight: 700;" class="border-0 py-2 px-0">S/ {{orden.total | number:'1.2-2'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-12">
+              
+            </div>
+        </div>
+        
+        
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of orden.productos; let i = index">
+                <td>
+                  <a style="min-width: 80px;">
+                    <img [src]="p?.imagen ? p.imagen : 'assets/img/no-image.png'" width="80" alt="Product thumb">
+                  </a>
+                </td>
+                <td>
+                  <h3 class="font-size-sm mb-3">
+                    <a class="nav-link font-weight-bold">{{p.nombre}}</a>
+                  </h3>
+                </td>
+                <td>
+                    <h3 class="font-size-sm mb-3">
+                      <a class="nav-link font-weight-bold">S/ {{p.precio | number:'1.2-2'}}</a>
+                    </h3>
+                  </td>
+                <td>
+                  <span class="quantity">{{p.cantidad}}</span>
+                </td>
+                <td>
+                  <div class="text-nowrap"><strong>S/ {{(p.precio * p.cantidad) | number:'1.2-2'}}</strong></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+</div>
+  

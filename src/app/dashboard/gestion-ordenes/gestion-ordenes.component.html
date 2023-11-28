@@ -1,0 +1,15 @@
+<div class="space-y-2">
+    <div class="grid grid-cols-2 gap-2 sm:gap-4">
+      <div class="col-span-2 md:col-span-1">
+        <h2 class="text-lg sm:text-2xl font-bold">Gestión de Pedidos</h2>
+      </div>
+      <div class="controls__gestion-pedidos">
+        <button [routerLink]="['/dashboard/gestionar-ordenes/pendientes']" routerLinkActive="btn-pendientes-active" class="btn btn-pendientes" type="button">Pendientes</button>
+        <button [routerLink]="['/dashboard/gestionar-ordenes/en-proceso']" routerLinkActive="btn-proceso-active" class="btn btn-proceso" type="button">En Proceso</button>
+        <button [routerLink]="['/dashboard/gestionar-ordenes/preparadas']" routerLinkActive="btn-preparados-active" class="btn btn-preparados" type="button">Preparados</button>
+        <button [routerLink]="['/dashboard/gestionar-ordenes/en-camino']" routerLinkActive="btn-camino-active" class="btn btn-camino" type="button">En Camino</button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+    <div></div>
+</div>

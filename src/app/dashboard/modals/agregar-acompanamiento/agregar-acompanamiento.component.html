@@ -1,0 +1,44 @@
+<div class="modal fade" id="agregarAcompanamiento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #agregarProductoModal>
+    
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Agregar Acompañamiento</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pr-4 pl-4">
+            <div class="mb-3">
+              <label for="email" class="col-form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" [(ngModel)]="acomp.nombre" name="nombre">
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="col-form-label">Precio:</label>
+              <input type="number" class="form-control" id="precio" [(ngModel)]="acomp.precio" name="precio">
+            </div>
+            <div>
+              <label for="tipoacomp" class="col-form-label">Tipo de Acompañamiento:</label>
+              <select
+                [(ngModel)]="acomp.id_tipo_acompanamiento"
+                class="w-full focus:outline-none border rounded focus:border-blue-500 px-2 py-1"
+                name="id_tipo_acompanamiento">
+                <option value="" disabled>--- Seleccionar ---</option>
+                <option *ngFor="let t of tipoAcomps" [value]="t.id_tipo_acompanamiento">
+                  {{ t.tipo }}
+                </option>
+              </select>
+            </div>
+          </form>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="agregarAcomp()">Agregar acompañamiento</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal></button>
+  </div>

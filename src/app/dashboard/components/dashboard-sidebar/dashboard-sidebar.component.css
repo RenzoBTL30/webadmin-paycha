@@ -1,0 +1,46 @@
+.sidebar{
+    height: 100vh;
+    background-color: white;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%),
+    0 0.9375rem 1.40625rem rgb(4 9 20 / 3%),
+    0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+}
+
+.closedSide{
+    left: -200px;
+
+}
+.openSide{
+    left:0;
+}
+ul{
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+/* ul>li{
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 10px;
+    width: 100%;
+} */
+/* ul>li:hover{
+    background-color: rgb(4 9 20 / 5%);
+
+} */
+
+
+@keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    animation: rotating 2s linear infinite;
+}

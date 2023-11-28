@@ -1,0 +1,42 @@
+<div class="modal fade" id="detalleProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #detalleProductoModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Producto</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <span class="font-bold">Imagen:</span>
+            <div class="text-center" style="height: 180px; text-align: center;">
+              <img [src]="imag" style="max-width: 40%; height: auto; margin: 0 auto;" class="rounded image" alt="" #image>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 flex flex-col mb-3">
+              <span class="font-bold">Nombre del producto:</span>
+              <span class="">{{ nom }}</span>
+            </div>
+            <div class="col-6 flex flex-col mb-3">
+              <span class="font-bold">Precio:</span>
+              <span class="">S/{{ prec }}</span>
+            </div>
+          </div>
+          <div class="col-span-12 flex flex-col mb-3">
+            <span class="font-bold">Descripción:</span>
+            <span class="">{{ desc }}</span>
+          </div>
+          <div class="col-span-12 flex flex-col mb-3">
+            <span class="font-bold">Categoría:</span>
+            <span class="">{{ nom_categoria }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+  

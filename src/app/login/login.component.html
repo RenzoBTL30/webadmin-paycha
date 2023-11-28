@@ -1,0 +1,78 @@
+<div
+  style="
+    background-image: url(./assets/img/fondo.jpg);
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+  "
+>
+  <div class="h-screen w-screen flex items-center justify-center px-4 lg:justify-end lg:pr-48">
+    <div class="w-96 rounded-lg text-black color-box-login">
+      <div class="relative pt-16 pb-4 px-4 sm:px-8">
+        <div class="w-full flex justify-center">
+          <div
+            class="absolute cursor-pointer bg-white -top-16 w-32 h-32 p-3 rounded-full hover:ring-4"
+            [routerLink]="['/']"
+            [routerLink]="['/']"
+          >
+            <img
+              src="./assets/img/logo-paycha.png"
+              alt="logo"
+              class="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <h4 class="mt-1 mb-4 pb-1 text-lg font-bold" style="color: black">
+            Iniciar Sesión
+          </h4>
+        </div>
+
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+          <!-- <p style="color: white">Por favor, ingrese a su cuenta</p> -->
+
+          <div class="form-outline mb-2">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Correo electrónico"
+              name="email"
+              [(ngModel)]="credentials.email"
+            />
+            <label class="form-label" for="form2Example11"></label>
+          </div>
+
+          <div class="form-outline mb-4 relative flex flex-row items-center">
+            <input
+              [type]="isVisible ? 'text' : 'password'"
+              id="contrasenia"
+              class="form-control"
+              placeholder="Contraseña"
+              name="contrasenia"
+              [(ngModel)]="credentials.contrasenia"
+            />
+            <button
+              type="button"
+              (click)="isVisible = !isVisible"
+              class="absolute right-2"
+            >
+              <i
+                class="fa-solid"
+                [ngClass]="isVisible ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </button>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="color-btn-login font-medium w-full py-2 rounded text-white focus:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-inherit">
+              Iniciar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

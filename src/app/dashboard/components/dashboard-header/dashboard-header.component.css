@@ -1,0 +1,30 @@
+.navbar {
+  padding: 0px 36px;
+  height: 100px;
+  width: 100vw;
+  position: fixed;
+
+  top: 0;
+  box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%),
+    0 0.9375rem 1.40625rem rgb(4 9 20 / 3%),
+    0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+}
+
+.toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background-color: white;
+}
+.toggle:hover {
+  background-color: rgb(4 9 20 / 5%);
+}
+
+.largeNav {
+  margin-left: 0;
+}
+
+.shortNav {
+  margin-left: 200px;
+}

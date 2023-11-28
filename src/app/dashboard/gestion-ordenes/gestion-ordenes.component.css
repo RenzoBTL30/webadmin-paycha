@@ -1,0 +1,72 @@
+.controls__gestion-pedidos {
+    display: flex;
+    column-gap: 15px;
+}
+
+.btn-pendientes {
+    background-color: #f89828;
+    border-color: #f89828;
+    color: white;
+}
+
+.btn-pendientes:hover {
+    background-color: #cc7b1f;
+    border-color: #cc7b1f;
+    color: white;
+}
+
+.btn-pendientes-active {
+    background-color: #cc7b1f;
+    border-color: #cc7b1f;
+}
+
+.btn-proceso {
+    background-color: #5a87fc;
+    border-color: #5a87fc;
+    color: white;
+}
+
+.btn-proceso:hover {
+    background-color: #3460d2;
+    border-color: #3460d2;
+    color: white;
+}
+
+.btn-proceso-active {
+    background-color: #3460d2;
+    border-color: #3460d2;
+}
+
+.btn-preparados {
+    background-color: #636776;
+    border-color: #636776;
+    color: white;
+}
+
+.btn-preparados:hover {
+    background-color: #424551;
+    border-color: #424551;
+    color: white;
+}
+
+.btn-preparados-active {
+    background-color: #424551;
+    border-color: #424551;
+}
+
+.btn-camino {
+    background-color: rgb(7, 170, 199);
+    border-color: rgb(7, 170, 199);
+    color: white;
+}
+
+.btn-camino:hover {
+    background-color: rgb(8, 141, 165);
+    border-color: rgb(8, 141, 165);
+    color: white;
+}
+
+.btn-camino-active {
+    background-color: rgb(8, 141, 165);
+    border-color: rgb(8, 141, 165);
+}

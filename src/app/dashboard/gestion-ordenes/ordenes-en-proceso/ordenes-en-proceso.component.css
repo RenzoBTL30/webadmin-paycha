@@ -1,0 +1,51 @@
+.btn-cambiar-en-proceso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5a87fc;
+    border-color: #5a87fc;
+    color: white;
+}
+
+.btn-cambiar-en-proceso:hover {
+    background-color: #3460d2;
+    border-color: #3460d2;
+}
+
+.btn-ingresar-tiempo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #189e11;
+    border-color: #189e11;
+    color: white;
+}
+
+.btn-ingresar-tiempo:hover {
+    background-color: #14780f;
+    border-color: #14780f;
+}
+
+.btn-cancelar-pedido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-color: red;
+    color: white;
+}
+
+.btn-cancelar-pedido:hover {
+    background-color: rgb(157, 20, 20);
+    border-color: rgb(157, 20, 20);
+}
+
+.icon-detalle{
+    cursor: pointer;
+}
+
+.box-spinner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

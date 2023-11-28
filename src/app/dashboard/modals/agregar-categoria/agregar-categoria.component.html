@@ -1,0 +1,27 @@
+<div class="modal fade" id="agregarCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #agregarUsuarioModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Agregar Categoría</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pr-4 pl-4">
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">Nombre:</label>
+              <input type="email" class="form-control" id="nombre" [(ngModel)]="categoria.nombre" name="nombre" >
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="agregarCategoria()">Agregar categoría</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal></button>
+</div>
+  

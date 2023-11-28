@@ -1,0 +1,91 @@
+<div class="space-y-2">
+    <div class="grid grid-cols-2 gap-2 sm:gap-4">
+      <div class="col-span-2 md:col-span-1">
+        <h2 class="text-lg sm:text-2xl font-bold">Gestión de Tipos de Acompañamiento</h2>
+      </div>
+      <div class="col-span-2 md:col-span-1 flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 pr-10">
+        <div >
+          <button
+            type="button"
+            class="btn btn-outline-secondary whitespace-nowrap"
+            data-bs-toggle="modal" data-bs-target="#agregarTipoAcomp"
+          >
+            + Tipo de Acompañamiento
+          </button>
+        </div>
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Buscar tipo de acompañamiento"
+          aria-label="Search"
+          [(ngModel)]="searchedString"
+        />
+      </div>
+    </div>
+    <div *ngIf="tipoAcompanamientos.length == 0" class="pb-4">
+      <div class="blankDiv">No hay Registros Disponibles</div>
+    </div>
+    <div *ngIf="isLoading" class="box-spinner">
+      <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <div class="table-responsive mt-4" *ngIf="tipoAcompanamientos.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Tipo de Acompañamiento</th>
+            <th scope="col">Tipo de Selección</th>
+            <th scope="col">Límite de opciones</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let t of tipoAcompanamientos | search: 'tipo':searchedString;
+              let i = index
+            "
+          >
+              <td>{{ i + 1 }}</td>
+              <td>{{ t.tipo }}</td>
+              <td>{{ t.tipo_seleccion }}</td>
+              <td>{{ t.limite_opciones }}</td>
+
+              <td class="space-x-4 whitespace-nowrap">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal" data-bs-target="#editarTipoAcomp"
+                  (click)="edit(t.id_tipo_acompanamiento, t.tipo, t.tipo_seleccion, t.limite_opciones)"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="deleteTipoAcomp(t.id_tipo_acompanamiento)"
+                >
+                  Eliminar
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div></div>
+</div>
+
+<app-agregar-tipo-acompanamiento
+(volveraListarTipoAcomps)="getTipoAcomps2daVez($event)"
+></app-agregar-tipo-acompanamiento>
+
+<app-editar-tipo-acompanamiento
+[id_tipoacomp]="id_tipo_acompanamiento"
+[tip]="tipo"
+[tip_sel]="tipo_seleccion"
+[limit]="limite_opciones"
+(volveraListarTipoAcomps)="getTipoAcomps2daVez($event)"
+>
+</app-editar-tipo-acompanamiento>

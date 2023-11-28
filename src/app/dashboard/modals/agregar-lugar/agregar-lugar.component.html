@@ -1,0 +1,31 @@
+<div class="modal fade" id="agregarLugar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #agregarLugarModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Agregar Lugar</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pr-4 pl-4">
+            <div class="mb-3">
+              <label for="lugar" class="col-form-label">Lugar:</label>
+              <input type="text" class="form-control" id="lugar" [(ngModel)]="lugar.lugar" name="lugar" >
+            </div>
+            <div class="mb-3">
+                <label for="comision" class="col-form-label">Comisión:</label>
+                <input type="number" class="form-control" id="comision" [(ngModel)]="lugar.comision" name="comision" >
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="agregarLugar()">Agregar lugar</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal></button>
+  </div>
+  

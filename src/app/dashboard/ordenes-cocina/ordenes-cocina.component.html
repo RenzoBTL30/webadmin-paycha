@@ -1,0 +1,21 @@
+<div class="d-flex gap-4 wrap">
+    <div class="card" style="width: 20rem;" *ngFor="let o of ordenesCocina; let i = index">
+        <div class="card-header orden-title">
+          Orden #{{i+1}}
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-body-primary orden-fecha mb-3">
+            Hora: {{formatearFecha(o.fecha_orden)}}
+          </h6>
+          <p class="card-text orden-tiempo mb-3">Tiempo de entrega: <span class="orden-tiempo-entrega">{{o.tiempo_entrega}}</span></p>
+          <p class="card-text orden-subtitle-productos mb-2">Detalle del pedido:</p>
+          <hr class="divider">
+          <ol *ngFor="let p of o.productos">
+            <li class="orden-producto-nombre">- {{p.nombre}}</li>
+            <li class="mb-2">Cantidad: {{p.cantidad}}</li>
+          </ol>
+          <button (click)="updateEstado(o.id_orden)" class="btn btn-primary mt-2" >Marcar como Preparado</button>
+        </div>
+    </div>
+    
+</div>

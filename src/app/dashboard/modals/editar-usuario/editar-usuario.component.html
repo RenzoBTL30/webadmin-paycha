@@ -1,0 +1,80 @@
+<div class="modal fade" id="editarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #agregarUsuarioModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Editar Usuario</h1>
+        <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span class="material-icons-outlined">
+          close
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="pr-4 pl-4">
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="ema" [(ngModel)]="ema" name="ema">
+          </div>
+          <div class="mb-3">
+            <label for="nombre" class="col-form-label">Nombre:</label>
+            <input type="email" class="form-control" id="nom" [(ngModel)]="nom" name="nom" >
+          </div>
+          <div class="mb-3">
+            <label for="apellidos" class="col-form-label">Apellidos:</label>
+            <input type="text" class="form-control" id="ape" [(ngModel)]="ape" name="ape">
+          </div>
+          <div class="mb-3">
+            <label for="celular" class="col-form-label">Celular:</label>
+            <input type="text" class="form-control" id="cel" [(ngModel)]="cel" name="cel">
+          </div>
+          <div class="mb-3">
+            <label for="contrasenia" class="col-form-label">Contraseña:</label>
+            <div class="relative flex items-center">
+              <input type="password" class="form-control" id="contra" [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="contra" name="contra">
+              <button
+                  class="absolute right-2 w-6 h-6 text-xs hover:bg-black/30 rounded-full"
+                  (click)="showPassword = !showPassword"
+                >
+                  <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="repeatcontrasenia" class="col-form-label">Repetir Contraseña:</label>
+            <div class="relative flex items-center">
+              <input type="password" class="form-control" id="repeatcontra" [type]="showRepeatedPassword ? 'text' : 'password'" name="repeatcontra">
+              <button
+                    class="absolute right-2 w-6 h-6 text-xs hover:bg-black/30 rounded-full"
+                    (click)="showRepeatedPassword = !showRepeatedPassword"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label for="rol" class="col-form-label">Rol:</label>
+            <select
+              [(ngModel)]="id_r"
+              class="w-full focus:outline-none border rounded focus:border-blue-500 px-2 py-1"
+              name="id_rol">
+              <option value="" disabled>--- Seleccionar ---</option>
+              <option *ngFor="let r of roles" [value]="r.id_rol">
+                {{ r.nombre }}
+              </option>
+            </select>
+          </div>
+        </form>
+
+          
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="editarUsuario()">Editar usuario</button>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal2></button>
+</div>
+

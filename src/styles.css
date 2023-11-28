@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-success{
+  background-color: #198754;
+}
+
+.btn-secondary{
+  background-color: #6c757d;
+}
+
+table > thead > tr > th {
+  @apply whitespace-nowrap
+}
+
+/* Este estilo es para que todos los toast esten fijos.
+   el valor por default es absolute, lo que permite que el toast se desplace junto con la pantalla 
+   al colocar en fixed, el toast se quedará fijo */
+.toast-container {
+  position: fixed;
+}

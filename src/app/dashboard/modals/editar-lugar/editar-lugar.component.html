@@ -1,0 +1,30 @@
+<div class="modal fade" id="editarCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #editarLugarModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Editar Lugar</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pr-4 pl-4">
+            <div class="mb-3">
+              <label for="lug" class="col-form-label">Lugar:</label>
+              <input type="text" class="form-control" id="lug" [(ngModel)]="lug" name="lug" >
+            </div>
+            <div class="mb-3">
+              <label for="com" class="col-form-label">Comisión:</label>
+              <input type="number" class="form-control" id="com" [(ngModel)]="com" name="com" >
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="editarLugar()">Editar lugar</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal2></button>
+  </div>

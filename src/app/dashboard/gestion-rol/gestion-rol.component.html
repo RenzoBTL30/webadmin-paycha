@@ -1,0 +1,77 @@
+<div class="space-y-2">
+    <div class="grid grid-cols-2 gap-2 sm:gap-4">
+      <div class="col-span-2 md:col-span-1">
+        <h2 class="text-lg sm:text-2xl font-bold">Gestión de Roles</h2>
+      </div>
+      <div class="col-span-2 md:col-span-1 flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 pr-10">
+        <div >
+          <button
+            type="button"
+            class="btn btn-outline-secondary whitespace-nowrap"
+            data-bs-toggle="modal" data-bs-target="#agregarRol"
+          >
+            + Rol
+          </button>
+        </div>
+        <input
+          class="form-control"
+          type="search"
+          placeholder="Buscar rol"
+          aria-label="Search"
+          [(ngModel)]="searchedString"
+        />
+      </div>
+    </div>
+    <div *ngIf="roles.length == 0" class="pb-4">
+      <div class="blankDiv">No hay Registros Disponibles</div>
+    </div>
+    <div *ngIf="isLoading" class="box-spinner">
+      <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <div class="table-responsive mt-4" *ngIf="roles.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Nombre</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let r of roles | search: 'nombre':searchedString;
+              let i = index
+            "
+          >
+              <td>{{ i + 1 }}</td>
+              <td>{{ r.nombre }}</td>
+              <td class="space-x-4 whitespace-nowrap">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal" data-bs-target="#editarRol"
+                  (click)="edit(r.id_rol, r.nombre)"
+                >
+                  Editar
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div></div>
+  </div>
+  
+  <app-agregar-rol
+  (volveraListarRoles)="getRoles2daVez($event)"
+  ></app-agregar-rol>
+
+  <app-editar-rol
+  [id_rol]="id_rol"
+  [nom]="nombre"
+  (volveraListarRoles)="getRoles2daVez($event)"
+  >
+  </app-editar-rol>

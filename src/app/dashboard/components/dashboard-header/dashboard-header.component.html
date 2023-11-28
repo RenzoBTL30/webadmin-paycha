@@ -1,0 +1,30 @@
+<div
+  class="fixed h-20 px-4 w-screen top-0 left-0 flex justify-between items-center bg-blue-600"
+>
+  <button class="toggle" (click)="onToggle()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <div class="relative">
+    <button
+      class="flex items-center space-x-4 text-white hover:"
+      (click)="dropIsShowed = !dropIsShowed"
+    >
+      <span class="font-bold">{{ usuario?.nombre + ' ' + usuario?.apellidos}}</span>
+      <i class="fa-solid fa-user text-xl"></i>
+    </button>
+    <div
+      class="bg-white absolute rounded shadow right-0 px-2 py-2 w-48"
+      *ngIf="dropIsShowed"
+    >
+      <ul class="divide-y">
+        <li class="px-2 cursor-pointer">
+          Rol: <span class="uppercase">{{ usuario?.rol }}</span>
+        </li>
+        <li class="hover:bg-gray-200 px-2 cursor-pointer" (click)="logOut()">
+          Cerrar Sesión
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

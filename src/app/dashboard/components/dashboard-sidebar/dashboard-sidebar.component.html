@@ -1,0 +1,21 @@
+<div
+  class="sidebar w-56 top-20 h-screen fixed py-4 px-2"
+  [ngClass]="sidebarIsOpen ? 'left-0' : '-left-56'"
+>
+  <div class="flex flex-col">
+    <router-link
+      *ngFor="let m of modulos"
+      [routerLink]="['/dashboard/' + m.ruta]"
+      routerLinkActive="bg-indigo-100 hover:bg-indigo-100"
+      class="p-2 cursor-pointer hover:bg-gray-100 "
+      >{{ m.nombre }}</router-link
+    >
+  </div>
+  <div
+    class="h-100"
+    style="display: flex; justify-content: center; align-items: center"
+    *ngIf="modulos.length == 0"
+  >
+    <i class="fa-solid fa-spinner rotating" style="font-size: 32px"></i>
+  </div>
+</div>

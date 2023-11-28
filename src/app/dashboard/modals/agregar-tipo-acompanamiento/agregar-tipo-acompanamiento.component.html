@@ -1,0 +1,44 @@
+<div class="modal fade" id="agregarTipoAcomp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #agregarUsuarioModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Agregar Tipo de Acompañamiento</h1>
+          <button type="button" style="color: black;" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span class="material-icons-outlined">
+            close
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="pr-4 pl-4">
+            <div class="mb-3">
+              <label for="tipo" class="col-form-label">Tipo:</label>
+              <input type="text" class="form-control" id="tipo" [(ngModel)]="tipoAcomp.tipo" name="tipo" >
+            </div>
+            <div class="mb-3">
+              <label for="tipo_seleccion" class="col-form-label">Tipo de selección:</label>
+              <select
+                [(ngModel)]="tipoAcomp.tipo_seleccion"
+                class="w-full focus:outline-none border rounded focus:border-blue-500 px-2 py-1"
+                name="tipo_seleccion">
+                <option value="" disabled>--- Seleccionar ---</option>
+                <option value="Multiple">Múltiple</option>
+                <option value="Unica">Única</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <ng-container *ngIf="tipoAcomp.tipo_seleccion == 'Multiple'">
+                <label for="limite_opciones" class="col-form-label">Límite de opciones:</label>
+                <input type="number" class="form-control" id="limite_opciones" [(ngModel)]="tipoAcomp.limite_opciones" name="limite_opciones">
+              </ng-container>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="agregarTipoAcomp()">Agregar tipo de acompañamiento</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" hidden #close_modal></button>
+  </div>
+  

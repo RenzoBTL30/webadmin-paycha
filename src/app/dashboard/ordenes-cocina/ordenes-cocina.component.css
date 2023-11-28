@@ -1,0 +1,27 @@
+.orden-title {
+    background-color: #A50104;
+    color: white;
+    text-align: center;
+}
+
+.orden-tiempo-entrega {
+    color: red;
+}
+
+.orden-tiempo {
+    font-weight: 500;
+}
+
+.orden-producto-nombre {
+    font-weight: bold;
+}
+
+.orden-subtitle-productos {
+    font-weight: 500;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #000000;
+    margin: 10px 0;
+}
