@@ -1,1 +1,1 @@
-export const apiURL: string = 'https://back.lapaycha.com/api';
+export const apiURL: string = 'http://localhost:3000/api';
