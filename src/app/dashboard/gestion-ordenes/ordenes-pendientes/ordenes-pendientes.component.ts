@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { OrdenService } from 'src/app/servicios/orden.service';
+import { OrdenesSocketService } from 'src/app/servicios/ordenes-socket.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,23 +10,30 @@ import Swal from 'sweetalert2';
   templateUrl: './ordenes-pendientes.component.html',
   styleUrls: ['./ordenes-pendientes.component.css']
 })
-export class OrdenesPendientesComponent implements OnInit {
+export class OrdenesPendientesComponent implements OnInit, OnDestroy {
 
   searchedString: string = '';
   searchedString2: string = '';
   ordenesPendientes: any[] = [];
   orden:any = {};
+  notification:string = '';
   isLoading?: boolean;
 
 
   constructor(
     private ordenService: OrdenService,
+    private ordenesSocket: OrdenesSocketService,
     private datePipe: DatePipe,
-    private toast: ToastrService
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.getOrdenesPendientes();
+    this.ordenesSocket.conectar();
+  }
+
+  ngOnDestroy(): void {
+    this.ordenesSocket.desconectar();
   }
 
   getOrdenesPendientes(){
@@ -68,6 +76,9 @@ export class OrdenesPendientesComponent implements OnInit {
       if (result.isConfirmed) {
         this.ordenService.updateEstado(id_orden, '2').subscribe(res => {
           this.toast.success('Estado actualizado')
+
+          this.notification = 'Tu pedido ha sido actualizado a En proceso';
+          this.ordenesSocket.notificarOrdenEnProceso(this.notification);
           this.getOrdenesPendientes();
         })
         
