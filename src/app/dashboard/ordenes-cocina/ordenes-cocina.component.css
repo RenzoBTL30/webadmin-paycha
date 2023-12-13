@@ -1,7 +1,24 @@
 .orden-title {
-    background-color: #A50104;
-    color: white;
-    text-align: center;
+    transition: background-color 0.5s ease; /* Agrega la transición para el fondo en 0.5 segundos con efecto easing */
+    color: black;
+    text-align: left;
+    padding: 15px;
+}
+
+.orden-title__number {
+    font-size: 1.8rem;
+}
+
+.orden-title__timer {
+    font-size: 1.1rem;
+}
+
+.orden-hora {
+    font-weight: 500;
+}
+
+.orden-hora__hora {
+    font-weight: normal;
 }
 
 .orden-tiempo-entrega {
@@ -12,7 +29,7 @@
     font-weight: 500;
 }
 
-.orden-producto-nombre {
+.orden-producto {
     font-weight: bold;
 }
 
@@ -24,4 +41,24 @@
     border: none;
     border-top: 1px solid #000000;
     margin: 10px 0;
+}
+
+.timer-green {
+    background-color: #64d77f;
+    color: black;
+}
+
+.timer-yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.timer-orange {
+    background-color: orange;
+    color: black;
+}
+
+.timer-red {
+    background-color: red;
+    color: white;
 }

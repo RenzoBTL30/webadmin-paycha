@@ -81,11 +81,11 @@ export class ProductoService {
   }
 
   deleteProducto(id_producto:number): Observable<any> {
-    return this.http.put<any>(`${apiURL}/producto/delete/${id_producto}`, {headers: this.agregarAuthorizationHeader()});
+    return this.http.put<any>(`${apiURL}/producto/delete/${id_producto}`, {}, {headers: this.agregarAuthorizationHeader()});
   }
 
 
   updateEstadoDisponible(id_producto:number, estado_disponible:string): Observable<any> {
-    return this.http.put<any>(`${apiURL}/producto/updateestadodis/${id_producto}/${estado_disponible}`, {headers: this.agregarAuthorizationHeader()});
+    return this.http.put<any>(`${apiURL}/producto/updateestadodis/${id_producto}/${estado_disponible}`, {}, {headers: this.agregarAuthorizationHeader()});
   }
 }

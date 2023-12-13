@@ -30,6 +30,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Apellidos</th>
             <th scope="col">Celular</th>
+            <th scope="col">Puntos</th>
             <th scope="col">Estado</th>
             <th scope="col"></th>
           </tr>
@@ -46,6 +47,14 @@
               <td>{{ u.nombre }}</td>
               <td>{{ u.apellidos }}</td>
               <td>{{ u.celular }}</td>
+              <td class="d-flex gap-2">
+                {{ u.puntos_descuento }}
+                <button (click)="actualizarPuntos(u.id_usuario)" class="btn btn-actualizar-puntos py-1 px-1" type="button">
+                  <span class="material-icons-outlined">
+                    edit
+                  </span>
+                </button>
+              </td>
               <td>{{ u.estado == 1 ? 'Activo' : 'Inactivo' }}</td>
               <td class="space-x-4 whitespace-nowrap">
                 <button

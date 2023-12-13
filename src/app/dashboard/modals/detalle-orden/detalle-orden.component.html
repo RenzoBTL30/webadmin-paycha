@@ -65,19 +65,25 @@
                           <td class="align-middle border-0">
                             <div [ngSwitch]="orden.estado">
                                 <div *ngSwitchCase="1">
-                                    <span class="badge badge-warning">Pendiente</span>
+                                    <span class="badge text-bg-warning">Pendiente</span>
                                 </div>
                                 <div *ngSwitchCase="2">
-                                    <span class="badge badge-info">En proceso</span>
+                                    <span class="badge text-bg-info">En proceso</span>
                                 </div>
                                 <div *ngSwitchCase="3">
-                                    <span class="badge badge-secondary">Preparado</span>
+                                    <span class="badge text-bg-secondary">Preparado</span>
                                 </div>
                                 <div *ngSwitchCase="4">
-                                    <span class="badge badge-success">Completado</span>
+                                  <span class="badge text-bg-info">En Camino</span>
+                                </div>
+                                <div *ngSwitchCase="5">
+                                    <span class="badge text-bg-success">Completado</span>
+                                </div>
+                                <div *ngSwitchCase="6">
+                                  <span class="badge text-bg-danger">Cancelado</span>
                                 </div>
                                 <div *ngSwitchDefault>
-                                    <span class="badge badge-danger">Error</span>
+                                    <span class="badge text-bg-danger">Error</span>
                                 </div>
                             </div>
                           </td>
@@ -114,7 +120,7 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col"></th>
+                <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Cantidad</th>
@@ -124,9 +130,7 @@
             <tbody>
               <tr *ngFor="let p of orden.productos; let i = index">
                 <td>
-                  <a style="min-width: 80px;">
-                    <img [src]="p?.imagen ? p.imagen : 'assets/img/no-image.png'" width="80" alt="Product thumb">
-                  </a>
+                  {{i + 1}}
                 </td>
                 <td>
                   <h3 class="font-size-sm mb-3">

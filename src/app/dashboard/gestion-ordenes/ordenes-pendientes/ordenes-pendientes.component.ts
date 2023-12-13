@@ -15,8 +15,12 @@ export class OrdenesPendientesComponent implements OnInit, OnDestroy {
   searchedString: string = '';
   searchedString2: string = '';
   ordenesPendientes: any[] = [];
-  orden:any = {};
-  notification:string = '';
+  orden: any = {};
+  notification: string = '';
+  notification2: string = '';
+  notification3: string = '';
+  notificationForCocina: string = '';
+
   isLoading?: boolean;
 
 
@@ -30,6 +34,14 @@ export class OrdenesPendientesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getOrdenesPendientes();
     this.ordenesSocket.conectar();
+
+    this.ordenesSocket.recibirOrdenPendiente().subscribe(response => {
+      this.getOrdenesPendientes();
+    });
+
+    this.ordenesSocket.recibirOrdenCancelada().subscribe(response => {
+      this.getOrdenesPendientes();
+    })
   }
 
   ngOnDestroy(): void {
@@ -58,6 +70,9 @@ export class OrdenesPendientesComponent implements OnInit, OnDestroy {
     if (tiempo_entrega) {
       this.ordenService.insertTiempoEntrega(id_orden, tiempo_entrega).subscribe(res => {
         this.toast.success('El tiempo se inserto correctamente');
+
+        this.notification2 = 'El tiempo de entrega de un pedido se ha actualizado';
+        this.ordenesSocket.notificarActualizacionTiempoEntrega(this.notification2);
         this.getOrdenesPendientes();
       })
     }
@@ -79,6 +94,9 @@ export class OrdenesPendientesComponent implements OnInit, OnDestroy {
 
           this.notification = 'Tu pedido ha sido actualizado a En proceso';
           this.ordenesSocket.notificarOrdenEnProceso(this.notification);
+
+          this.notificationForCocina = 'Un nuevo pedido ha ingresado';
+          this.ordenesSocket.notificarNuevaOrdenEnProceso(this.notificationForCocina, id_orden);
           this.getOrdenesPendientes();
         })
         
@@ -86,8 +104,29 @@ export class OrdenesPendientesComponent implements OnInit, OnDestroy {
     })
   }
 
+  cancelarOrden(id_orden:number) {
+    Swal.fire({
+      title: '¿Estás seguro que deseas cancelar el pedido?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ordenService.cancelarOrden(id_orden).subscribe(response => {
+          this.toast.success('El pedido ha sido cancelado');
+
+          this.notification3 = 'Tu pedido ha sido cancelado';
+          this.ordenesSocket.notificarOrdenCancelada(this.notification3);
+
+          this.getOrdenesPendientes();
+        });        
+      }
+    })    
+  }
+
   detallePedido(orden:any) {
     this.orden = orden;
   }
-
 }

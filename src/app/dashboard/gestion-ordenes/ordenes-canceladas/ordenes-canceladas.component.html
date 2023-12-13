@@ -17,11 +17,10 @@
         [(ngModel)]="searchedString2"
       />
       ---->
-      
     </div>
     
   </div>
-  <div *ngIf="ordenesPendientes.length == 0" class="pb-4">
+  <div *ngIf="ordenesCanceladas.length == 0" class="pb-4">
     <div class="blankDiv">No hay Registros Disponibles</div>
   </div>
   <div *ngIf="isLoading" class="box-spinner">
@@ -29,7 +28,7 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div class="table-responsive mt-4" *ngIf="ordenesPendientes.length > 0">
+  <div class="table-responsive mt-4" *ngIf="ordenesCanceladas.length > 0">
     <table class="table">
       <thead>
         <tr>
@@ -40,13 +39,12 @@
           <th scope="col">Tiempo estimado <hr style="border: 0;"> de entrega</th>
           <th scope="col">Detalle</th>
           <th scope="col">Total</th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
           <tr
           *ngFor="
-            let o of ordenesPendientes | search: 'codigo':searchedString; 
+            let o of ordenesCanceladas | search: 'codigo':searchedString; 
             let i = index
           "
           >
@@ -63,24 +61,6 @@
               >visibility</span>
             </td>
             <td>S/ {{ o.total | number:'1.2-2'}}</td>
-            <td style="display: flex; column-gap: 10px;">
-              <button (click)="updateEstado(o.id_orden)" class="btn btn-cambiar-en-proceso" type="button">
-                <span class="material-icons-outlined">
-                  done
-                </span>
-              </button>
-              <button (click)="updateTiempoEntrega(o.id_orden)" class="btn btn-ingresar-tiempo" type="button">
-                <span class="material-icons-outlined">
-                  schedule
-                </span>
-              </button>
-              <button (click)="cancelarOrden(o.id_orden)" class="btn btn-cancelar-pedido" type="button">
-                <span class="material-icons-outlined">
-                  cancel
-                </span>
-              </button>
-              
-            </td>
           </tr>
       </tbody>
     </table>

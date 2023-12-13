@@ -55,6 +55,7 @@ import { OrdenesCocinaComponent } from './dashboard/ordenes-cocina/ordenes-cocin
 import { OrdenesCompletadasComponent } from './dashboard/ordenes-completadas/ordenes-completadas.component';
 import { OrdenesEnCaminoComponent } from './dashboard/gestion-ordenes/ordenes-en-camino/ordenes-en-camino.component';
 import { Search2Pipe } from './pipes/search2.pipe';
+import { OrdenesCanceladasComponent } from './dashboard/gestion-ordenes/ordenes-canceladas/ordenes-canceladas.component';
 @NgModule({
   declarations: [
     FilterPipe,
@@ -110,6 +111,7 @@ import { Search2Pipe } from './pipes/search2.pipe';
     OrdenesCompletadasComponent,
     OrdenesEnCaminoComponent,
     Search2Pipe,
+    OrdenesCanceladasComponent,
   ],
   imports: [
     BrowserModule,

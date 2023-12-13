@@ -70,3 +70,21 @@
     background-color: rgb(8, 141, 165);
     border-color: rgb(8, 141, 165);
 }
+
+
+.btn-cancelado {
+    background-color: rgb(255, 44, 41);
+    border-color: rgb(255, 44, 41);
+    color: white;
+}
+
+.btn-cancelado:hover {
+    background-color: rgb(184, 18, 15);
+    border-color: rgb(184, 18, 15);
+    color: white;
+}
+
+.btn-cancelado-active {
+    background-color: rgb(184, 18, 15);
+    border-color: rgb(184, 18, 15);
+}
