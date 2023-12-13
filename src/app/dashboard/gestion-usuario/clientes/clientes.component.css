@@ -11,3 +11,21 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.btn-actualizar-puntos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #189e11;
+  border-color: #189e11;
+  color: white;
+}
+
+.btn-actualizar-puntos:hover {
+  background-color: #14780f;
+  border-color: #14780f;
+}
+
+.btn-actualizar-puntos span{
+  font-size: 1rem
+}

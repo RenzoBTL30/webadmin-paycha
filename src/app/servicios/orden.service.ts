@@ -37,4 +37,9 @@ export class OrdenService {
   insertTiempoEntrega(id_orden:number, tiempo_entrega:string): Observable<any> {
     return this.http.put<any>(`${apiURL}/orden/inserttiempo/${id_orden}`, { tiempo_entrega }, {headers: this.agregarAuthorizationHeader()});
   }
+
+  //Cancelar pedido u orden
+  cancelarOrden(id_orden:number): Observable<any> {
+    return this.http.put<any>(`${apiURL}/orden/cancelarorden/${id_orden}`,{},{headers: this.agregarAuthorizationHeader()});
+  }
 }

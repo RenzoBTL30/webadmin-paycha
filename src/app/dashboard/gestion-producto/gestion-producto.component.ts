@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriaService } from 'src/app/servicios/categoria.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
+import { ProductosSocketService } from 'src/app/servicios/productos-socket.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,12 +10,13 @@ import Swal from 'sweetalert2';
   templateUrl: './gestion-producto.component.html',
   styleUrls: ['./gestion-producto.component.css']
 })
-export class GestionProductoComponent implements OnInit {
+export class GestionProductoComponent implements OnInit, OnDestroy {
 
   searchedString: string = '';
   filtroCategoria: string = '';
   filtroDisponibilidad: string = '';
   productos: any[] = [];
+  notification: string = '';
   
 
   id_producto?:number;
@@ -31,16 +33,23 @@ export class GestionProductoComponent implements OnInit {
   constructor(
     private prodService: ProductoService,
     private catService: CategoriaService,
+    private productosSocket: ProductosSocketService,
     private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.productosSocket.conectar();
     this.getProductos();
+  }
+
+  ngOnDestroy(): void {
+    this.productosSocket.desconectar();
   }
 
   onSwitchChange(id_producto:number, estado_dis:string) {
     this.prodService.updateEstadoDisponible(id_producto, estado_dis).subscribe((data) => {
-
+      this.notification = 'La disponibilidad del producto ha cambiado'
+      this.productosSocket.notificarDisponibilidadProducto(this.notification);
     });
   }
 

@@ -19,6 +19,7 @@ import { OrdenesPreparadasComponent } from './dashboard/gestion-ordenes/ordenes-
 import { OrdenesCompletadasComponent } from './dashboard/ordenes-completadas/ordenes-completadas.component';
 import { OrdenesCocinaComponent } from './dashboard/ordenes-cocina/ordenes-cocina.component';
 import { OrdenesEnCaminoComponent } from './dashboard/gestion-ordenes/ordenes-en-camino/ordenes-en-camino.component';
+import { OrdenesCanceladasComponent } from './dashboard/gestion-ordenes/ordenes-canceladas/ordenes-canceladas.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
           { path: 'en-proceso', component:OrdenesEnProcesoComponent },
           { path: 'preparadas', component:OrdenesPreparadasComponent },
           { path: 'en-camino', component:OrdenesEnCaminoComponent },
+          { path: 'canceladas', component:OrdenesCanceladasComponent },
         ]
       },
       {

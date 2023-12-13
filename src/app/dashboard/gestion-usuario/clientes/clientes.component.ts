@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { PuntosService } from 'src/app/servicios/puntos.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,7 @@ export class ClientesComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
+    private puntosService: PuntosService,
     private toast: ToastrService
   ) { }
 
@@ -54,6 +56,23 @@ export class ClientesComponent implements OnInit {
       }
     })
     
+  }
+
+  async actualizarPuntos(id_usuario:number) {
+    const { value: puntos } = await Swal.fire({
+      title: 'Puntos de descuento',
+      input: 'number',
+      inputLabel: 'Ingresa los puntos',
+    })
+    
+    if (puntos) {
+      
+      this.puntosService.actualizarPuntos(id_usuario, puntos).subscribe(res => {
+        this.toast.success('Los puntos han sido actualizados correctamente');
+        this.getUsuariosCliente();
+      })
+      
+    }
   }
 
 }
