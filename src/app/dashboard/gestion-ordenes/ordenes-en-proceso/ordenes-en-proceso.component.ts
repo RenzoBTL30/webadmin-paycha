@@ -51,7 +51,7 @@ export class OrdenesEnProcesoComponent implements OnInit, OnDestroy {
   }
 
   formatearFecha(fecha: string) {
-    return this.datePipe.transform(fecha, 'HH:mm:ss');
+    return this.datePipe.transform(fecha, 'hh:mm:ss aaaa')?.toLowerCase();
   }
 
   async updateTiempoEntrega(id_orden:number) {

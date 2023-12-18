@@ -44,6 +44,11 @@ export class OrdenesSocketService {
     this.socketWebAdmin.emit('nueva-orden-en-proceso', message, id_orden);
   }
 
+  // De Cocina Para la App Delivery
+  notificarNuevaOrdenPreparada(message: string) {
+    this.socketWebAdmin.emit('nueva-orden-preparada', message);
+  }
+
   notificarActualizacionTiempoEntrega(message: string) {
     this.socketWebAdmin.emit('tiempo-entrega', message);
   }

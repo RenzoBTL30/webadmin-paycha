@@ -62,3 +62,29 @@
     background-color: red;
     color: white;
 }
+
+.acomps, .combos {
+    padding-left: 10px;
+}
+
+.title-acomps, .title-combos {
+    font-weight: 600;
+}
+
+.list-acomps {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+
+.list-combos {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+
+.orden-producto {
+    font-size: 1.1rem;
+}
+
+.title-nota-adicional {
+    font-weight: 600;
+}

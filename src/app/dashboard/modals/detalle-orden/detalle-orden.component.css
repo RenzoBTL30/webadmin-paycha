@@ -1,0 +1,21 @@
+.producto-nombre {
+    font-weight: bold;
+}
+
+.title-acomp, .title-combo {
+    font-weight: 700;
+}
+
+.list-acomps {
+    list-style-type: circle;
+    padding-left: 30px;
+}
+
+.list-combos {
+    list-style-type: circle;
+    padding-left: 30px;
+}
+
+.icon-nota {
+    color: blue;
+}
