@@ -14,8 +14,11 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
 
   ordenesCocina: any[] = [];
   ordenesCocinaForTimers: any[] = [];
+  mappedAcomps:any[]=[];
+  fechaActual:Date = new Date();
 
   notification: string = '';
+  notification2: string = '';
 
   constructor(
     private ordenService: OrdenService,
@@ -29,9 +32,24 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
     this.getOrdenesEnProcesoForTimers();
     this.ordenesSocket.conectar();
 
+    /*
+    17/12/2023 01:00pm ---> fecha en la que se hizo el pedido
+
+    04:00pm ---> fecha actual
+
+    3 horas ---> resta entre la fecha_pedido - fecha_actual
+    el timer debe comenzar a partir de esas tres horas osea debe comenzar en 180:00
+
+    06:00pm
+
+    5 horas
+    */
+
     this.ordenesSocket.recibirOrdenEnProceso().subscribe(response => {
       this.getOrdenesEnProceso();
       this.startTimer(response.id_orden);
+      const time_orden = new Date(response.fecha_orden);
+      
     });
 
   }
@@ -42,7 +60,7 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
 
 
   formatearFecha(fecha: string) {
-    return this.datePipe.transform(fecha, 'HH:mm:ss');
+    return this.datePipe.transform(fecha, 'hh:mm:ss aaaa')?.toLowerCase();
   }
 
   updateEstado(id_orden:number) {
@@ -52,6 +70,10 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
 
       this.notification = 'Tu pedido ha sido actualizado a Preparado';
       this.ordenesSocket.notificarOrdenPreparada(this.notification);
+
+      this.notification2 = 'Un pedido ha sido actualizado a Preparado';
+      this.ordenesSocket.notificarNuevaOrdenPreparada(this.notification2);
+
       this.stopTimer(id_orden);
       this.getOrdenesEnProceso();
     })
@@ -60,10 +82,12 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
   getOrdenesEnProceso() {
     this.ordenService.getOrdenesCocina('2').subscribe((data) => {
       this.ordenesCocina = data;
+      console.log(this.ordenesCocina);
     });
   }
 
   getOrdenesEnProcesoForTimers() {
+    let keys = Object.keys(sessionStorage);
     this.ordenService.getOrdenesCocina('2').subscribe((data) => {
       this.ordenesCocinaForTimers = data;
 
@@ -75,12 +99,24 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
           if (cronometro.isRunning) {
             this.reanudarTimer(orden.id_orden);
           }
+        } else {
+          this.startTimer(orden.id_orden);
         }
       });
     });
   }
 
   startTimer(id_orden:number) {
+    //let o const
+    let cronometro:Cronometro = new Cronometro();
+    cronometro.isRunning = true;
+    cronometro.intervalId = setInterval(() => {
+      cronometro.timer++;
+      this.saveTimerState(cronometro, id_orden);
+    }, 1000);
+  }
+
+  startAllTimer(id_orden:number) {
     //let o const
     let cronometro:Cronometro = new Cronometro();
     cronometro.isRunning = true;
@@ -145,24 +181,17 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
   padZero(value: number): string {
     return value < 10 ? `0${value}` : `${value}`;
   }
-  
-  isTimerRunning(id_orden: number): boolean {
-    const cronometroData = localStorage.getItem(`crono_orden_${id_orden}`);
-    const cronometro = cronometroData ? JSON.parse(cronometroData) : null;
-  
-    return cronometro && cronometro.isRunning;
-  }
 
   getTimerColorClass(id_orden: number): any {
     let cronometroData = localStorage.getItem(`crono_orden_${id_orden}`);
     let cronometro = cronometroData ? JSON.parse(cronometroData) : null;
 
     if (cronometro) {
-      if (cronometro.timer < 60) {
+      if (cronometro.timer < 480) { //7 minutos
         return 'timer-green';
-      } else if (cronometro.timer < 90) {
+      } else if (cronometro.timer < 1080) { //17 minutos
         return 'timer-yellow';
-      } else if (cronometro.timer < 180) {
+      } else if (cronometro.timer < 180) { //26 minutos
         return 'timer-orange';
       } else {
         return 'timer-red';
@@ -170,5 +199,45 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
     }
 
     
+  }
+  
+  categorizarPorTipoAcomps(acomps:any[]) {
+
+    this.mappedAcomps = acomps.reduce((acc, curr) => {
+    const existingItem = acc.find((item: { tipo: any; }) => item.tipo === curr.tipo);
+    
+      if (existingItem) {
+        existingItem.acompanamientos.push({
+          id_acompanamiento: curr.id_acompanamiento,
+          acompanamiento: curr.acompanamiento,
+          precio: curr.precio,
+          tipo: curr.tipo
+        });
+      } else {
+        acc.push({
+          tipo: curr.tipo,
+          acompanamientos: [{
+            id_acompanamiento: curr.id_acompanamiento,
+            acompanamiento: curr.acompanamiento,
+            precio: curr.precio,
+            tipo: curr.tipo,
+          }]
+        });
+      }
+    
+      return acc;
+    }, []);
+
+    return this.mappedAcomps;
+  }
+
+  // Método para construir la cadena de acompañamientos
+  cadenAcomps(acompanamientos:any[]) {
+    return acompanamientos.map(acomp => acomp.acompanamiento).join(', ');
+  }
+
+  // Método para construir la cadena de acompañamientos
+  cadenCombos(combos:any[]) {
+    return combos.map(c => c.combo).join(', ');
   }
 }

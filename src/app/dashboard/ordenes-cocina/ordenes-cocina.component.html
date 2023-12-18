@@ -9,24 +9,51 @@
           <p class="card-text orden-tiempo mb-3">Tiempo de entrega: <span class="orden-tiempo-entrega">{{o.tiempo_entrega}}</span></p>
           <p class="card-text orden-subtitle-productos mb-2">Detalle del pedido:</p>
           <hr class="divider">
-          <ol *ngFor="let p of o.productos">
-            <li class="orden-producto">{{p.cantidad}} x {{p.nombre}}</li>
-            <ul class="font-size-sm mt-n2 mb-2">
-              <li class="mb-0">
-                <span class="text-muted" style="font-weight: 500;">Combos:</span>
-                <ul class="text-muted">
-                  <li>
-                    Ketchup
-                  </li>
-                  <li>
-                    Mayonesa
-                  </li>
-                  <li>
-                    Mostaza
+          <ol class="mb-3" *ngFor="let p of o.productos; let i = index">
+            <ng-container>
+              <li class="orden-producto mb-2">{{p.cantidad}} x {{p.nombre}}</li>
+              <ng-container *ngIf="p.nota_adicional">
+                <div class="mb-3">
+                  <span class="title-nota-adicional mb-1">Nota adicional:</span>
+                  <p>{{p.nota_adicional}}</p>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="p.acompanamientos != null">
+                <ul class="acomps font-size-sm mt-n2 mb-1">
+                  <li class="mb-0" *ngFor="let ma of categorizarPorTipoAcomps(p.acompanamientos);">
+                    <span class="title-acomps">{{ma.tipo}}:</span>
+                    <ul class="list-acomps">
+                      <!----
+                      <li *ngFor="let acomp of ma.acompanamientos">
+                        {{acomp.acompanamiento}}
+                      </li>
+                      ----->
+                      <li>
+                        {{ cadenAcomps(ma.acompanamientos) }}
+                      </li>
+                    </ul>
                   </li>
                 </ul>
-              </li>
-            </ul>
+              </ng-container>
+              <ng-container *ngIf="p.combos != null">
+                <ul class="combos font-size-sm mt-n2 mb-2">
+                  <span class="title-combos">Combos:</span>
+                  <!----
+                  <li class="mb-0" *ngFor="let c of p.combos">
+                    <ul class="list-combos">
+                      <li>{{c.combo}}</li>
+                    </ul>
+                  </li>
+                  ----->
+                  <ul class="list-combos">
+                    <li class="mb-0">
+                      {{ cadenCombos(p.combos) }}
+                    </li>
+                  </ul>
+                </ul>
+              </ng-container>
+            </ng-container>
+            
           </ol>
           <button (click)="updateEstado(o.id_orden)" class="btn btn-primary mt-2" >Marcar como Preparado</button>
         </div>
