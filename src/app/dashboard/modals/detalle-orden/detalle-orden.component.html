@@ -23,7 +23,7 @@
                         </tr>
                         <tr>
                           <th class="border-0 py-2 pl-0">Cliente - Teléfono</th>
-                          <td class="border-0 py-2 px-0 text-muted"></td>
+                          <td class="border-0 py-2 px-0">{{orden.cliente == null ? '' : orden.cliente.nombre}} {{orden.cliente == null ? '' : orden.cliente.apellidos}} - {{orden.cliente == null ? '' : orden.cliente.celular}}</td>
                         </tr>
                         <tr>
                           <th class="border-0 py-2 pl-0">Forma de entrega:</th>
