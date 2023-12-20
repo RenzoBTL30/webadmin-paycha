@@ -65,7 +65,6 @@ export class DetalleOrdenComponent implements OnInit {
         nuevoPrecio = nuevoPrecio + e.precio
       });
     }
-    
     return nuevoPrecio;
   }
 
