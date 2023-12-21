@@ -12,7 +12,7 @@ import { OrdenesSocketService } from 'src/app/servicios/ordenes-socket.service';
 })
 export class OrdenesCocinaComponent implements OnInit, OnDestroy {
 
-  ordenesCocina: any[] = [];
+  ordenesCocina: any[]= [];
   ordenesCocinaForTimers: any[] = [];
   mappedAcomps:any[]=[];
   fechaActual:Date = new Date();
@@ -82,10 +82,29 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
   getOrdenesEnProceso() {
     this.ordenService.getOrdenesCocina('2').subscribe((data) => {
       this.ordenesCocina = data;
-      console.log(this.ordenesCocina);
     });
   }
+  chunkArray(array: any, chunkSize: number): any {
+    const result: any = [];
+    const remainingArray = array.slice(3);
+    for (let i = 0; i < remainingArray.length; i += chunkSize) {
+   
+      const x={
+        content:remainingArray.slice(i, i + chunkSize),
+        final:i==chunkSize?true:false
+      }
+      result.push(x);
+    }
+    if(result.length==1){
+      result[0].final=true;
+    }
+    return result;
+  }
 
+  getNextOrder(data:any){
+    const resultArray:any = this.chunkArray(data, 5);
+    return resultArray;
+  }
   getOrdenesEnProcesoForTimers() {
     let keys = Object.keys(sessionStorage);
     this.ordenService.getOrdenesCocina('2').subscribe((data) => {

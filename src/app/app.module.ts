@@ -56,6 +56,8 @@ import { OrdenesCompletadasComponent } from './dashboard/ordenes-completadas/ord
 import { OrdenesEnCaminoComponent } from './dashboard/gestion-ordenes/ordenes-en-camino/ordenes-en-camino.component';
 import { Search2Pipe } from './pipes/search2.pipe';
 import { OrdenesCanceladasComponent } from './dashboard/gestion-ordenes/ordenes-canceladas/ordenes-canceladas.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   declarations: [
     FilterPipe,
@@ -124,6 +126,9 @@ import { OrdenesCanceladasComponent } from './dashboard/gestion-ordenes/ordenes-
     ToastrModule.forRoot({
       timeOut: 3000,
     }),
+    FormsModule,
+    NgbModule,
+    BsDatepickerModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiURL } from './global';
-
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +25,19 @@ export class OrdenService {
   getOrdenes(estado:string): Observable<any> {
     return this.http.get<any>(`${apiURL}/orden/buscar/porestado/${estado}`, {headers: this.agregarAuthorizationHeader()});
   }
-
+  getOrdenesAndDate(estado:string,page:number,size:number, dates:any): Observable<any> {
+    const params={
+      page: page ?? 0,
+      size: size ?? 10,
+      fechaInicio: dates ? dates[0] : null,
+      fechaFin: dates ? dates[1] : null
+    }
+    if(dates){
+       params.fechaInicio=moment(dates[0]).format('YYYY-MM-DD')
+       params.fechaFin=moment(dates[1]).format('YYYY-MM-DD')
+    }
+    return this.http.get<any>(`${apiURL}/orden/buscar/porestado/fecha/${estado}`, {headers: this.agregarAuthorizationHeader(), params:params});
+  }
   getOrdenesCocina(estado:string): Observable<any> {
     return this.http.get<any>(`${apiURL}/orden/buscar/porestadococina/${estado}`, {headers: this.agregarAuthorizationHeader()});
   }

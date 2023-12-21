@@ -10,13 +10,18 @@ import { OrdenService } from 'src/app/servicios/orden.service';
 })
 export class OrdenesCompletadasComponent implements OnInit {
 
-  ordenesCompletadas:any[]=[];
+  ordenesCompletadas:any=[];
 
   searchedString: string = '';
   searchedString2: string = '';
   orden:any = {};
+  page:number=0;
+  size:number=10;
   isLoading?: boolean;
-
+  date:any=[
+    new Date(),
+    new Date()
+  ]
   constructor(
     private ordenService: OrdenService,
     private datePipe: DatePipe,
@@ -24,12 +29,15 @@ export class OrdenesCompletadasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.date[0].setDate(this.date[0].getDate() - 30);
     this.getOrdenesCompletadas();
   }
-
+  onValueChange(value: any): void {
+    this.date = value;
+  }
   getOrdenesCompletadas(){
     this.isLoading = true;
-    this.ordenService.getOrdenes('5').subscribe((data) => {
+    this.ordenService.getOrdenesAndDate('5',this.page,this.size,this.date).subscribe((data) => {
       this.ordenesCompletadas = data;
       this.isLoading = false;
     });
