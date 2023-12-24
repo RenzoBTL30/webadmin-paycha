@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { offset } from '@popperjs/core';
 import { ToastrService } from 'ngx-toastr';
+import { count } from 'rxjs';
 import { Cronometro } from 'src/app/models/cronometro';
 import { OrdenService } from 'src/app/servicios/orden.service';
 import { OrdenesSocketService } from 'src/app/servicios/ordenes-socket.service';
@@ -78,11 +80,61 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
       this.getOrdenesEnProceso();
     })
   }
-
+  arraySeparate:any=[];
   getOrdenesEnProceso() {
+    this.arraySeparate=[];
     this.ordenService.getOrdenesCocina('2').subscribe((data) => {
       this.ordenesCocina = data;
-    });
+      this.ordenesCocina.forEach(orden => {
+        orden.productos.forEach((x:any) => {
+          orden.productos.push(x);
+      })
+    })
+    setTimeout(() => {
+      let dropDowns = Array.from(document.querySelectorAll('#container'));
+      let maxHeight = 450;
+      
+      dropDowns.forEach((card, l) => {
+        const height = (card as HTMLElement).offsetHeight;
+        console.log(height)
+        if (height +240 > maxHeight) {
+          const object={
+            position:l,
+            conten:null
+          }
+          this.arraySeparate.push(object)
+          // Obtén todos los elementos <ol> dentro de la card actual
+          let olElements = card.querySelectorAll('ol');
+          let secongHeight = 160 ;
+          let elments:any=[];
+          let subElements:any=[];
+          let count=0;
+          olElements.forEach((olElement, index) => {
+            secongHeight+= olElement.offsetHeight
+            if(secongHeight>maxHeight){
+              if(count<maxHeight){
+                subElements.push(index)
+                count=count+olElement.offsetHeight;
+                if(index==olElements.length-1){
+                  elments.push(subElements)
+                  subElements=[];
+                  count=0;
+                }
+              } else{
+                elments.push(subElements)
+                subElements=[];
+                count=0;
+              }
+
+              olElement.remove();
+            }
+          });
+          this.arraySeparate[l].conten=elments;
+          console.log(this.arraySeparate)
+        }
+      });
+    }, 1000);
+  })
   }
   chunkArray(array: any, chunkSize: number): any {
     const result: any = [];
@@ -100,7 +152,43 @@ export class OrdenesCocinaComponent implements OnInit, OnDestroy {
     }
     return result;
   }
+  viewAdd(index:number){
+    const res  =this.arraySeparate.find((x:any)=>x.position==index);
+    if(res){
 
+        let array:any=[];
+        let subarray:any=[];
+        let principal=0;
+        res.conten.forEach((element:any,) => {
+          let valor:boolean=false;
+          if(res.conten[principal+1]!=undefined){
+              valor=true
+              principal++;
+          }else{
+            principal=0;
+          }
+          let count=0;
+          element.forEach((x:any) => {
+            this.ordenesCocina[index].productos[x];
+            subarray.push(this.ordenesCocina[index].productos[x])
+            if(count==element.length-1){
+              let object={
+                content:subarray,
+                final:valor
+              }
+              array.push(object)
+              subarray=[];
+            }
+            count++;
+            
+
+          })
+    });
+    console.log(array)
+    return array;
+    }
+    return null;
+  }
   getNextOrder(data:any){
     const resultArray:any = this.chunkArray(data, 5);
     return resultArray;
